@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "459225870497",
+    "project_id": "capstone-anesi-1a3b8",
+    "storage_bucket": "capstone-anesi-1a3b8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:459225870497:android:6869c545cd12efff1500e0",
+        "android_client_info": {
+          "package_name": "com.example.capstone_anesi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmZADxG9C2uaMe0WuFF3Vj5uhpAooxwPM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
