@@ -1,48 +1,34 @@
-import 'package:capstone_anesi/model/productModel.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-class AddProductScreen extends StatefulWidget {
-  final Function(Map<String, dynamic>) onAdd;
+class EditProductScreen extends StatelessWidget {
+  final Map<String, dynamic> product;
+  final int index;
+  final Function(Map<String, dynamic>, int) onSave;
+  final Function(int) onDelete;
 
-  const AddProductScreen({Key? key, required this.onAdd}) : super(key: key);
+  EditProductScreen({
+    Key? key,
+    required this.product,
+    required this.index,
+    required this.onSave,
+    required this.onDelete,
+  }) : super(key: key);
 
-  @override
-  _AddProductScreenState createState() => _AddProductScreenState();
-}
-
-class _AddProductScreenState extends State<AddProductScreen> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
-
   String selectedSubCategory = 'COFFEE';
-
-  void _saveProduct() {
-  final String name = nameController.text;
-  final double? price = double.tryParse(priceController.text);
-
-  if (name.isNotEmpty && price != null) {
-    Provider.of<ProductRepository>(context, listen: false).addProduct({
-      'name': name,
-      'price': price,
-      'category': selectedSubCategory,
-    });
-
-    Navigator.pop(context);
-  } else {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Please enter valid details')),
-    );
-  }
-}
-
 
   @override
   Widget build(BuildContext context) {
+    // Pre-fill the controllers
+    nameController.text = product['name'];
+    priceController.text = product['price'].toString();
+    selectedSubCategory = product['category'] ?? 'COFFEE';
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'ADD PRODUCT/DRINKS',
+          'EDIT PRODUCT/DRINKS',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.white,
@@ -107,9 +93,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       ))
                   .toList(),
               onChanged: (value) {
-                setState(() {
-                  selectedSubCategory = value!;
-                });
+                selectedSubCategory = value!;
               },
               decoration: InputDecoration(
                 border: OutlineInputBorder(
@@ -119,21 +103,33 @@ class _AddProductScreenState extends State<AddProductScreen> {
             ),
             const SizedBox(height: 32.0),
             Center(
-            child: ElevatedButton(
-              onPressed: _saveProduct,
-                 style: ElevatedButton.styleFrom(
+            child:ElevatedButton(              
+              onPressed: () {
+                // Save changes
+                final updatedProduct = {
+                  'name': nameController.text,
+                  'price': double.tryParse(priceController.text) ?? 0.0,
+                  'category': selectedSubCategory,
+                };
+                print('Updated Product Sent to onSave: $updatedProduct'); // Debug Log
+                onSave(updatedProduct, index);
+                Navigator.pop(context);
+              },
+               style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF0F3830),
               padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
             ),
               child: const Text(
-                'Add New Product',
+                'Save Changes',
                 style: TextStyle(color: Colors.white),
               ),
             ),
             ),
+            const SizedBox(height: 16.0), 
           ],
         ),
       ),
     );
   }
+
 }

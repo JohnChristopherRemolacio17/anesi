@@ -1,11 +1,12 @@
-//import 'package:capstone_anesi/main.dart';
+import 'package:capstone_anesi/cartScreen/transactionModel.dart';
 import 'package:capstone_anesi/constant.dart';
+//import 'package:capstone_anesi/inventoryScreen/inventorymodel.dart';
 import 'package:capstone_anesi/main.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:capstone_anesi/cartScreen/cartmodel.dart'; // Corrected import path
 import 'package:capstone_anesi/orderModel.dart' as OrderModel; // Import the OrderModel class
-import 'package:capstone_anesi/cartScreen/transactionModel.dart';
+
 
 class ListScreen extends StatefulWidget {
   const ListScreen({super.key});
@@ -343,6 +344,9 @@ class _ListScreenState extends State<ListScreen> with SingleTickerProviderStateM
   'price': totalBill,
    });
 
+  // final int milkDeduction;
+  // Provider.of<InventoryModel>(context, listen: false).deductItem('Milk',milkDeduction);
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -563,4 +567,3 @@ void _noncashpayment (BuildContext context, CartModel cartModel){
     // Navigate to the transaction history screen
     //Navigator.pushNamed(context, '/list');
   }
-  

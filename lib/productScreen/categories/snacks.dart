@@ -146,10 +146,10 @@ class _SnacksState extends State<Snacks> {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
+            crossAxisCount: 5,
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
-            childAspectRatio: 1.5,
+            childAspectRatio: 1.3,
           ),
           itemCount: categoryItems.length,
           itemBuilder: (context, index) {

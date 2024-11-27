@@ -5,8 +5,8 @@ import 'package:capstone_anesi/cartScreen/transactionModel.dart';
 import 'package:capstone_anesi/hamburgerIcon/hamburger.dart';
 import 'package:capstone_anesi/listsScreen/lists.dart';
 import 'package:capstone_anesi/model/productModel.dart';
-
 import 'package:capstone_anesi/productScreen/product.dart' as productScreen;
+import 'package:capstone_anesi/paymentScreen/payment.dart'; // Imported PaymentScreen
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,7 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-       ChangeNotifierProvider(create: (context) => ProductRepository()),
+        ChangeNotifierProvider(create: (context) => ProductRepository()),
         ChangeNotifierProvider(create: (context) => CartModel()),
         ChangeNotifierProvider(create: (context) => CartModelNoodles()),
         ChangeNotifierProvider(create: (context) => OrderModel()),
@@ -47,7 +47,8 @@ class MyApp extends StatelessWidget {
         '/product': (context) => const productScreen.Product(),
         '/cart': (context) => const Carts(),
         '/list': (context) => const ListScreen(),
-        'mainscreen': (context) => const MainScreen(),
+        '/payment': (context) => const PaymentScreen(), // Added PaymentScreen route
+        '/mainscreen': (context) => const MainScreen(),
       },
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

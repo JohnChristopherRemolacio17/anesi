@@ -1,8 +1,10 @@
-//import 'package:capstone_anesi/cartScreen/transactionModel.dart';
 import 'package:capstone_anesi/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../model/productModel.dart';
 import 'cartmodel.dart';
+import '../reportScreen/report.dart';
+import '../utils/utils.dart'; // Adjust the path based on your folder structure
 
 class Carts extends StatelessWidget {
   const Carts({super.key});
@@ -11,11 +13,11 @@ class Carts extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text(
+        title: const Text(
           "Your Cart",
           style: TextStyle(
-            fontWeight: FontWeight.bold,  // Set the font to bold
-            fontSize: 20,                 // Optionally adjust the font size
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
           ),
         ),
       ),
@@ -30,6 +32,7 @@ class Carts extends StatelessWidget {
               : ListView(
                   padding: const EdgeInsets.all(16),
                   children: [
+                    // Cart Items Display
                     ...cartModel.items.map((item) {
                       return Card(
                         elevation: 3,
@@ -41,11 +44,12 @@ class Carts extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              decoration:const BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: kprimaryColor,
                                 borderRadius: BorderRadius.vertical(
-                                    top: Radius.circular(10),
-                                    bottom: Radius.circular(10)),
+                                  top: Radius.circular(10),
+                                  bottom: Radius.circular(10),
+                                ),
                               ),
                               padding: const EdgeInsets.all(16),
                               child: Row(
@@ -90,10 +94,9 @@ class Carts extends StatelessWidget {
                         ),
                       );
                     }),
-
-                    //order summary section
                     const SizedBox(height: 16),
                     const Divider(),
+                    // Order Summary Section
                     const Text(
                       'Order Summary',
                       style: TextStyle(
@@ -101,9 +104,7 @@ class Carts extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-
                     const SizedBox(height: 8),
-
                     ...cartModel.items.map((item) {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,7 +114,7 @@ class Carts extends StatelessWidget {
                             children: [
                               Text(item['name']),
                               Text('${item['price'].toStringAsFixed(2)}'),
-                            ]
+                            ],
                           ),
                         ],
                       );
@@ -138,18 +139,33 @@ class Carts extends StatelessWidget {
                         ),
                       ],
                     ),
-
                     const SizedBox(height: 16),
+                    // Proceed to Payment Button
                     ElevatedButton(
-                      onPressed: () {
-                        // Handle proceed to payment
-                        Navigator.pushNamed(context, '/list');
-                      },
+                      onPressed: totalPrice > 0
+                          ? () {
+                              // Navigate to Payment Screen
+                              Navigator.pushNamed(context, '/payment')
+                                  .then((_) {
+                                // After payment is completed, update sales data
+                                for (var item in cartModel.items) {
+                                  processPurchase(Product(
+                                    name: item['name'],
+                                    price: item['price'],
+                                  categories: [item['category']], // Wrap in a list
+
+                                  ));
+                                }
+                                // Clear cart after payment
+                                cartModel.clearCart();
+                              });
+                            }
+                          : null, // Disable button if total price is zero
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         textStyle: const TextStyle(fontSize: 18),
                       ),
-                      child: const Text('Proceed to Payment'),
+                      child: const Text("Proceed to Payment"),
                     ),
                   ],
                 );
@@ -157,6 +173,4 @@ class Carts extends StatelessWidget {
       ),
     );
   }
-
-  }
-
+}

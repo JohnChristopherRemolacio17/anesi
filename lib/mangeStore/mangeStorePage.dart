@@ -46,8 +46,7 @@ class ManageStoreScreen extends StatelessWidget {
           ),
           const Divider(),
           ListTile(
-            title: const Text('Cashier & Payment'),
-            subtitle: const Text('Cash on Hand'),
+            title: const Text('Cash on Hand'),
             trailing: const Icon(Icons.arrow_forward_ios),
             onTap: () {
               // Add navigation or functionality here

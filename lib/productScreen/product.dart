@@ -167,5 +167,3 @@ class PopularItem extends StatelessWidget {
     );
   }
 }
-
-

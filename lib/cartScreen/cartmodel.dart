@@ -53,6 +53,19 @@ class CartModel extends ChangeNotifier {
     _items.clear();
     notifyListeners();
   }
+
+  // New method to calculate total amount
+  double calculateTotalAmount() {
+    double total = 0.0;
+    for (var item in _items) {
+      total += item['price'];
+      if (item['addons'] != null) {
+        total += (item['addons'] as List<Map<String, dynamic>>)
+            .fold(0, (addonSum, addon) => addonSum + addon['price']);
+      }
+    }
+    return total;
+  }
 }
 
 class CartItem {
@@ -77,3 +90,9 @@ class Cart {
   }
 }
 
+// Example cart flow for handling payment
+void processCartPayment(CartModel cartModel) {
+  final double totalAmount = cartModel.calculateTotalAmount();
+  print('Processing payment for total: $totalAmount');
+  cartModel.clearCart(); // Clear the cart after payment
+}
