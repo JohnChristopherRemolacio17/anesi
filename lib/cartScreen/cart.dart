@@ -152,7 +152,7 @@ class Carts extends StatelessWidget {
                                   processPurchase(Product(
                                     name: item['name'],
                                     price: item['price'],
-                                  categories: [item['category']], // Wrap in a list
+                                 // Wrap in a list
 
                                   ));
                                 }

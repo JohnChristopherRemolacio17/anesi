@@ -1,3 +1,4 @@
+import 'package:capstone_anesi/mangeStore/category/setProductScreen2.dart';
 import 'package:capstone_anesi/mangeStore/category/setProductScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -26,17 +27,37 @@ class ManageStoreScreen extends StatelessWidget {
           ),
           const Divider(),
           ListTile(
-            title: const Text('Category/Product'),
-            subtitle: const Text('3 Category, 25 Items'),
+            title: const Text('Drinks'),
+          
             trailing: const Icon(Icons.arrow_forward_ios),
            onTap: () {
   Navigator.push(
     context,
     MaterialPageRoute(builder: (context) => SetProductScreen()),
   );
+  
 },
           ),
           const Divider(),
+          ListTile(
+            title: const Text('Noodles'),
+            trailing: const Icon(Icons.arrow_forward_ios),
+            onTap: () {
+              Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => SetNoodleScreen()),
+  );
+            },
+          ),
+           const Divider(),
+          ListTile(
+            title: const Text('Meals and Snacks'),
+            trailing: const Icon(Icons.arrow_forward_ios),
+            onTap: () {
+              // Add navigation or functionality here
+            },
+          ),
+           const Divider(),
           ListTile(
             title: const Text('Sub Category'),
             trailing: const Icon(Icons.arrow_forward_ios),
